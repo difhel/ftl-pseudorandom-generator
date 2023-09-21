@@ -79,7 +79,7 @@ class Generator {
             return g_achilles.seed;
         }
 
-        std::pair<ll, Generator> CalcPeriod() const {
+        ll CalcPeriod() const {
             // calc the period of the generator and returns
             // a pair of the period and the generator with
             // <period value> steps generated
@@ -99,14 +99,15 @@ class Generator {
             std::cout << "Period: " << period << "\n";
             #endif
 
-            return {period, period_generator};
+            return period;
         }
 
-        ll CalcHalfPeriod(
-            std::pair<ll, Generator> period_and_generator) const {
+        ll CalcHalfPeriod(ll period) const {
             // calc the half-period of the generator
-            Generator &half_period_generator_one = period_and_generator.second;
-
+            Generator half_period_generator_one = *this;
+            for (ll i = 0; i < period; ++i) {
+                half_period_generator_one.generate();
+            }
             // now we are going with two generators
             // (from the first generated number and from the n-th)
             // and seeing when it occurs a collision
@@ -170,11 +171,11 @@ int main() {
     const Generator::Coefficients cfs(a, b, c, d);
     const Generator generator(cfs, seed);
 
-    std::pair<ll, Generator> period_and_generator = generator.CalcPeriod();
-    ll half_period = generator.CalcHalfPeriod(period_and_generator);
+    ll period = generator.CalcPeriod();
+    ll half_period = generator.CalcHalfPeriod(period);
     ld z = generator.CalcZ(d, 400, 20);
 
     std::cout << std::fixed << std::setprecision(3);
-    std::cout << half_period << " " << period_and_generator.first << " " << z;
+    std::cout << half_period << " " << period << " " << z;
     return 0;
 }

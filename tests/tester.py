@@ -23,7 +23,7 @@ def builder():
     """Build C++ file."""
     print("Building...")
     subprocess.check_call(
-        ["g++", "main.cpp", "-o", "/tmp/testing.o", "-O2", "-I."],
+        ["g++", "main.cpp", "-o", "/tmp/testing.o", "-O3", "-I."],
         stdout=subprocess.DEVNULL
     )
     print("Done.")

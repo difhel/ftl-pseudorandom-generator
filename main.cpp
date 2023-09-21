@@ -176,6 +176,6 @@ int main() {
     ld z = generator.CalcZ(d, 400, 20);
 
     std::cout << std::fixed << std::setprecision(3);
-    std::cout << half_period << " " << period << " " << z;
+    std::cout << period << " " << half_period << " " << z;
     return 0;
 }
